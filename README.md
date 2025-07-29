@@ -33,7 +33,10 @@ public static void AddSplashBypass(Sprite splash)
 ```
 - In your mod's `Load()`, use the above code like this:
 ```cs
-Sprite iconOrSplash = GetOrCreateYourSprite();
-AddIconBypass(iconOrSplash); // If icon
-AddSplashBypass(iconOrSplash); // If splash
+if (SRModLoader.IsModPresent("custom.loading")
+{
+    Sprite iconOrSplash = GetOrCreateYourSprite();
+    AddIconBypass(iconOrSplash); // If icon
+    AddSplashBypass(iconOrSplash); // If splash
+}
 ```
