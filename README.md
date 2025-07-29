@@ -5,7 +5,7 @@ Using the fairly simple system that has been developed, this mod functions as a 
 
 ## For Non Developers
 - Run the mod once. This should create a new folder in your game installation called `Loading`
-- Drop in your image into this folder.
+- Drop in your image into this folder. It has to be either jpg or png.
 - - If the image name ends with `_Icon`, it gets added as the little wobbly icon in the loading screen.
 - - If the image name ends with `_Splash`, it gets added as the background image of the loading screen.
 - - If the image name ends with neither, it is considered both an icon and a splash image.
