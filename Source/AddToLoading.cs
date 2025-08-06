@@ -14,4 +14,6 @@ public static class AddToLoading
     public static void AddIcons(IEnumerable<Sprite> icons) => Icons.UnionWith(icons);
 
     public static void AddSplashes(IEnumerable<Sprite> splashes) => Splashes.UnionWith(splashes);
+
+    internal static bool StartsWithAny(this string @string, params string[] parts) => parts.Any(@string.StartsWith);
 }

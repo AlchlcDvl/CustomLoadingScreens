@@ -6,6 +6,8 @@ namespace CLS;
 internal sealed class Main : ModEntryPoint
 {
     private static readonly string Folder = Path.Combine(Path.GetDirectoryName(Application.dataPath), "Loading");
+    private static readonly string[] AlreadyPresent = ["iconBirdChick", "iconBirdHen", "iconBirdRooster", "iconSlimeBoom", "iconSlimeGold", "iconSlimeHoney", "iconSlimeHunter", "iconSlimePhosphor",
+        "iconSlimePink", "iconSlimePuddle", "iconSlimeRad", "iconSlimeRock", "iconSlimeTabby"];
 
     public override void PreLoad()
     {
@@ -41,10 +43,13 @@ internal sealed class Main : ModEntryPoint
             else if (name.EndsWith("_Splash"))
                 AddToLoading.AddSplash(sprite);
             else
-            {
+                ConsoleInstance.Log("Cannot register " + path + "!");
+        }
+
+        foreach (var sprite in Resources.FindObjectsOfTypeAll<Sprite>())
+        {
+            if (sprite.name.StartsWithAny("iconSlime", "iconBird") && !AlreadyPresent.Contains(sprite.name))
                 AddToLoading.AddIcon(sprite);
-                AddToLoading.AddSplash(sprite);
-            }
         }
     }
 }

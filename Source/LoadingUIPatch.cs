@@ -7,7 +7,7 @@ namespace CLS;
 [HarmonyPatch(typeof(LoadingUI), nameof(LoadingUI.Awake))]
 internal static class AddImagesToLoadingUIPatch
 {
-    private static bool BackgroundAdded;
+    private static bool SpritesLoaded;
     private static Sprite[] Backgrounds;
     private static Sprite[] Icons;
 
@@ -15,13 +15,13 @@ internal static class AddImagesToLoadingUIPatch
     {
         var background = __instance.transform.Find("Background").GetComponent<Image>();
 
-        if (!BackgroundAdded)
+        if (!SpritesLoaded)
         {
             AddToLoading.AddSplash(background.sprite);
             AddToLoading.AddIcons(__instance.bouncyIcons);
-            Backgrounds = AddToLoading.Splashes.ToArray();
-            Icons = AddToLoading.Icons.ToArray();
-            BackgroundAdded = true;
+            Backgrounds = [.. AddToLoading.Splashes];
+            Icons = [.. AddToLoading.Icons];
+            SpritesLoaded = true;
         }
 
         __instance.bouncyIcons = Icons;

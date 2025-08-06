@@ -8,7 +8,6 @@ Using the fairly simple system that has been developed, this mod functions as a 
 - Drop in your image into this folder. It has to be either jpg or png.
 - - If the image name ends with `_Icon`, it gets added as the little wobbly icon in the loading screen.
 - - If the image name ends with `_Splash`, it gets added as the background image of the loading screen.
-- - If the image name ends with neither, it is considered both an icon and a splash image.
 
 ## For Developers
 - Add the following id to your `load_after` entry in your `modinfo.json` file: `"custom.loading"`
@@ -33,7 +32,7 @@ public static void AddSplashBypass(Sprite splash)
 ```
 - In your mod's `Load()`, use the above code like this:
 ```cs
-if (SRModLoader.IsModPresent("custom.loading")
+if (SRModLoader.IsModPresent("custom.loading"))
 {
     Sprite iconOrSplash = GetOrCreateYourSprite();
     AddIconBypass(iconOrSplash); // If icon
