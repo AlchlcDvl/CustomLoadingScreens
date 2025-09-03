@@ -3,7 +3,7 @@
         <AssemblyName>CustomLoadingScreens</AssemblyName>
         <RootNamespace>CLS</RootNamespace>
         <TargetFramework>net4.8</TargetFramework>
-        <Version>1.0.0</Version>
+        <Version>1.1.0</Version>
         <DebugType>none</DebugType>
         <DebugSymbols>true</DebugSymbols>
         <LangVersion>preview</LangVersion>
@@ -16,6 +16,7 @@
         <EnableNETAnalyzers>true</EnableNETAnalyzers>
         <Configurations>Debug;Release</Configurations>
         <ImplicitUsings>true</ImplicitUsings>
+        <GenerateDocumentationFile>true</GenerateDocumentationFile>
     </PropertyGroup>
 
     <PropertyGroup Condition="$(Configuration)==Release">

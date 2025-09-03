@@ -6,8 +6,7 @@ namespace CLS;
 internal sealed class Main : ModEntryPoint
 {
     private static readonly string Folder = Path.Combine(Path.GetDirectoryName(Application.dataPath), "Loading");
-    private static readonly string[] AlreadyPresent = ["iconBirdChick", "iconBirdHen", "iconBirdRooster", "iconSlimeBoom", "iconSlimeGold", "iconSlimeHoney", "iconSlimeHunter", "iconSlimePhosphor",
-        "iconSlimePink", "iconSlimePuddle", "iconSlimeRad", "iconSlimeRock", "iconSlimeTabby"];
+    private static readonly string[] AlreadyPresent = ["Chick", "Hen", "Rooster", "Boom", "Gold", "Honey", "Hunter", "Phosphor", "Pink", "Puddle", "Rad", "Rock", "Tabby"];
 
     public override void PreLoad()
     {
@@ -21,7 +20,14 @@ internal sealed class Main : ModEntryPoint
     {
         foreach (var path in Directory.EnumerateFiles(Folder, "*.*", SearchOption.TopDirectoryOnly))
         {
-            if (!path.EndsWith(".png") && !path.EndsWith(".jpg"))
+            if (path.EndsWith(".txt"))
+            {
+                var text = File.ReadAllText(path);
+                AddToLoading.AddTipTexts(text.Split('\n').Select(x => x.Trim()).Where(x => !string.IsNullOrWhiteSpace(x)));
+                continue;
+            }
+
+            if (!path.EndsWithAny(".png", ".jpg"))
                 continue;
 
             using var stream = File.OpenRead(path);
@@ -48,7 +54,7 @@ internal sealed class Main : ModEntryPoint
 
         foreach (var sprite in Resources.FindObjectsOfTypeAll<Sprite>())
         {
-            if (sprite.name.StartsWithAny("iconSlime", "iconBird") && !AlreadyPresent.Contains(sprite.name))
+            if (sprite.name.StartsWithAny("iconSlime", "iconBird") && !AlreadyPresent.Contains(sprite.name.Replace("iconSlime", "").Replace("iconBird", "")))
                 AddToLoading.AddIcon(sprite);
         }
     }
