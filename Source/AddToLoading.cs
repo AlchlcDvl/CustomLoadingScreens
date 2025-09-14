@@ -47,7 +47,7 @@ public static class AddToLoading
     /// <param name="tipTexts">The texts to be added.</param>
     public static void AddTipTexts(IEnumerable<string> tipTexts) => TipTexts.UnionWith(tipTexts);
 
-    internal static bool EndsWithAny(this string @string, params string[] parts) => parts.Any(@string.EndsWith);
+    internal static bool EndsWithAny(this string @string, params string[] parts) => parts.Any(x => @string.EndsWith(x, StringComparison.Ordinal));
 
-    internal static bool StartsWithAny(this string @string, params string[] parts) => parts.Any(@string.StartsWith);
+    internal static bool StartsWithAny(this string @string, params string[] parts) => parts.Any(x => @string.StartsWith(x, StringComparison.Ordinal));
 }

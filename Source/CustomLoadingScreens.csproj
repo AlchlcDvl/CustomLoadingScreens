@@ -2,7 +2,7 @@
     <PropertyGroup>
         <AssemblyName>CustomLoadingScreens</AssemblyName>
         <RootNamespace>CLS</RootNamespace>
-        <TargetFramework>net4.8</TargetFramework>
+        <TargetFramework>net4.7.2</TargetFramework>
         <Version>1.1.0</Version>
         <DebugType>none</DebugType>
         <DebugSymbols>true</DebugSymbols>

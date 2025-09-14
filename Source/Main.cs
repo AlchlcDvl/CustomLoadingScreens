@@ -20,10 +20,12 @@ internal sealed class Main : ModEntryPoint
     {
         foreach (var path in Directory.EnumerateFiles(Folder, "*.*", SearchOption.TopDirectoryOnly))
         {
-            if (path.EndsWith(".txt"))
+            if (path.EndsWith(".txt", StringComparison.Ordinal))
             {
-                var text = File.ReadAllText(path);
-                AddToLoading.AddTipTexts(text.Split('\n').Select(x => x.Trim()).Where(x => !string.IsNullOrWhiteSpace(x)));
+                AddToLoading.AddTipTexts(File.ReadAllText(path)
+                    .Split('\n')
+                    .Select(x => x.Trim())
+                    .Where(x => !string.IsNullOrWhiteSpace(x)));
                 continue;
             }
 
@@ -44,9 +46,9 @@ internal sealed class Main : ModEntryPoint
             var sprite = Sprite.Create(texture, new(0, 0, texture.width, texture.height), new(0.5f, 0.5f), 1f, 0, SpriteMeshType.Tight);
             sprite.name = name;
 
-            if (name.EndsWith("_Icon"))
+            if (name.EndsWith("_Icon", StringComparison.Ordinal))
                 AddToLoading.AddIcon(sprite);
-            else if (name.EndsWith("_Splash"))
+            else if (name.EndsWith("_Splash", StringComparison.Ordinal))
                 AddToLoading.AddSplash(sprite);
             else
                 ConsoleInstance.Log("Cannot register " + path + "!");
