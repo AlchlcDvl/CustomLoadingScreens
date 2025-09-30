@@ -8,6 +8,8 @@ internal sealed class Main : ModEntryPoint
     private static readonly string Folder = Path.Combine(Path.GetDirectoryName(Application.dataPath), "Loading");
     private static readonly string[] AlreadyPresent = ["Chick", "Hen", "Rooster", "Boom", "Gold", "Honey", "Hunter", "Phosphor", "Pink", "Puddle", "Rad", "Rock", "Tabby"];
 
+    public static MessageBundle UiBundle;
+
     public override void PreLoad()
     {
         HarmonyInstance.PatchAll(typeof(Main).Assembly);
@@ -42,7 +44,7 @@ internal sealed class Main : ModEntryPoint
             };
             texture.LoadImage(ms.ToArray());
             var name = Path.GetFileNameWithoutExtension(path);
-            texture.name = name;
+            texture.name = name + "_tex";
             var sprite = Sprite.Create(texture, new(0, 0, texture.width, texture.height), new(0.5f, 0.5f), 1f, 0, SpriteMeshType.Tight);
             sprite.name = name;
 
@@ -59,5 +61,10 @@ internal sealed class Main : ModEntryPoint
             if (sprite.name.StartsWithAny("iconSlime", "iconBird") && !AlreadyPresent.Contains(sprite.name.Replace("iconSlime", "").Replace("iconBird", "")))
                 AddToLoading.AddIcon(sprite);
         }
+
+        UiBundle = GameContext.Instance.MessageDirector.GetBundle("ui");
+
+        for (AddToLoading.TipCount = 0; UiBundle.Exists(AddToLoading.Prefix + AddToLoading.TipCount); AddToLoading.TipCount++)
+            AddToLoading.AddLocalTipText(AddToLoading.Prefix + AddToLoading.TipCount);
     }
 }

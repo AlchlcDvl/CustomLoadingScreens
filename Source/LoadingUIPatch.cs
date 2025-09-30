@@ -8,8 +8,8 @@ namespace CLS;
 internal static class AddImagesToLoadingUIPatch
 {
     private static Sprite[] Icons;
+    private static string[] TipIds;
     private static Sprite[] Splashes;
-    private static string[] TipTexts;
     private static bool SpritesLoaded;
 
     public static bool Prefix(LoadingUI __instance)
@@ -18,18 +18,11 @@ internal static class AddImagesToLoadingUIPatch
 
         if (!SpritesLoaded)
         {
-            var bundle = GameContext.Instance.MessageDirector.GetBundle("ui");
-            var set = new HashSet<string>();
-
-            for (var i = 0; bundle.Exists("m.loadingtip." + i); i++)
-                set.Add(bundle.Xlate("m.loadingtip." + i));
-
             AddToLoading.AddIcons(__instance.bouncyIcons);
             AddToLoading.AddSplash(background.sprite);
-            AddToLoading.AddTipTexts(set);
 
             Icons = [.. AddToLoading.Icons];
-            TipTexts = [.. AddToLoading.TipTexts];
+            TipIds = [.. AddToLoading.TipIds];
             Splashes = [.. AddToLoading.Splashes];
 
             SpritesLoaded = true;
@@ -37,8 +30,8 @@ internal static class AddImagesToLoadingUIPatch
 
         __instance.bouncyIcons = Icons;
 
+        __instance.tipText.text = Main.UiBundle.Xlate(Randoms.SHARED.Pick(TipIds));
         __instance.bouncySlime.sprite = Randoms.SHARED.Pick(Icons);
-        __instance.tipText.text = Randoms.SHARED.Pick(TipTexts);
         background.sprite = Randoms.SHARED.Pick(Splashes);
 
         var darkener = __instance.gameObject.FindChild("Shadow RightCorner", true).Instantiate(__instance.transform);
