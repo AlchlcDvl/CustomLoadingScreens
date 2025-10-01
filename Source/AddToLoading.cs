@@ -40,10 +40,20 @@ public static class AddToLoading
     /// <param name="tipText">The text to be added.</param>
     public static void AddTipText(string tipText)
     {
-        var id = Prefix + TipCount;
+        var id = GetNextLoadingId();
         TranslationPatcher.AddUITranslation(id, tipText);
-        TipCount++;
         TipIds.Add(id);
+    }
+
+    /// <summary>
+    /// Generates a translation id that's in line with the game's loading tips.
+    /// </summary>
+    /// <returns>A loading tip id.</returns>
+    public static string GetNextLoadingId()
+    {
+        var id = Prefix + TipCount;
+        TipCount++;
+        return id;
     }
 
     /// <summary>
